@@ -6,6 +6,10 @@ Link to demo and example [here](https://amourspirit.github.io/XSD-to-AutoHotkey-
 
 If converting to AutoHotkey format then Mini-Framework for AutoHotkey is required.
 
+The latest binary can be download from the Latest_Binary folder. [here](https://github.com/Amourspirit/XSD-to-AutoHotkey-or-CS/raw/master/Latest_Binary/Xsdout.exe) is a link to the binary.  
+
+It is recommended to place the **xsdOut.exe** binary file in your path such as your Windows folder.  
+
 Command line options for xsdOut.exe  
 
  -c, --classes       Generate Classes for this Schema  
