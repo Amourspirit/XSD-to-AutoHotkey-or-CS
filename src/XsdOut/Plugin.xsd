@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:documentation>The Snippit to run. May be the name of a AutoHotkey file such as mysnippit.ahk.
+If is value of AutoHotkey file then file (mysnippit.ahk) would most likely conatin a label and the xml lable element would be set to this name</xs:documentation>
+  </xs:annotation>
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="commands" minOccurs="0"/>
+        <xs:element ref="hotstrings" minOccurs="0"/>
+        <xs:element minOccurs="0" ref="includes"/>
+      </xs:sequence>
+      <xs:attribute name="version" use="required" type="version">
+        <xs:annotation>
+          <xs:documentation>The version of this plugin</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute default="0.1.0" name="min_version" type="version">
+        <xs:annotation>
+          <xs:documentation>The Minium version of the app to run this plugin</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="codeLanguage" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>The Language of the Code file such as AutoHotkey</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute default="true" name="enabled" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>The enabled attribute gives a way to enable or disable an entire plugin set. If enabled is false then all the the plugins in the root element will be disabled</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="name" type="fileName" use="required">
+        <xs:annotation>
+          <xs:documentation>The name of the plugin. This name should be unique among all other pluings within a profile.
+Recommended Naming convention of YourCompany-Name such as Bigbyte-Hotstrings
+
+It is not recommended to append .xml to the end of the name</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="commands">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="command"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="command">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name">
+          <xs:annotation>
+            <xs:documentation>The name of the Command for Display purporses</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="description">
+          <xs:annotation>
+            <xs:documentation>The Description of what the comand does</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" ref="category">
+          <xs:annotation>
+            <xs:documentation>The category of the command</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="label" type="xs:NCName">
+          <xs:annotation>
+            <xs:documentation>The AutoHotkey name of the label to run if the snippit runs external AutoHotkey Code</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="snippit"/>
+        <xs:element default="unknown" minOccurs="0" name="type" type="commandType"/>
+        <xs:element minOccurs="0" ref="code"/>
+      </xs:sequence>
+      <xs:attribute name="hotkey" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The Hotkey to trigger the event such as !^YX (shift+ctrl+y x)
+
+This can be two keys as in the example with 'Y' and 'X'. When two keys are used the modilfer keys are required to be let go before the seccond key is pressed.
+Following the example above shift+ctrl+y would be pressed and then let go and immeditaly followed by x to complete the event.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute default="true" name="enabled" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>If False then the command will be disabled</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="label" type="xs:NCName"/>
+  <xs:element name="hotstrings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="hotstring"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="hotstring">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name">
+          <xs:annotation>
+            <xs:documentation>The Name of the Hotstring for Display</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="description">
+          <xs:annotation>
+            <xs:documentation>The Description of the Hotstring</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="category" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The Category of the Hotstring. Used to group and filter list of hotstrings.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="forceclear"/>
+        <xs:element ref="snippit"/>
+        <xs:element ref="tabify" minOccurs="0"/>
+        <xs:element ref="sendkeys" minOccurs="0"/>
+        <xs:element default="unknown" minOccurs="0" name="type" type="hotstringType">
+          <xs:annotation>
+            <xs:documentation>The type of hotstring such as inline</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" ref="code"/>
+        <xs:element ref="replacements" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="trigger" use="required" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The sequence of typed keys that triggers the hotstring</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute default="true" name="enabled" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="code" type="xs:string"/>
+  <xs:element name="includes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="include"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="include">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="description"/>
+        <xs:element ref="snippit"/>
+        <xs:element ref="code"/>
+        <xs:element minOccurs="0" name="hotstrings">
+          <xs:annotation>
+            <xs:documentation>One or more Hotstrings in the include file.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="hotstring">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="name">
+                      <xs:annotation>
+                        <xs:documentation>The Name of the Hotstring for Display</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" ref="description">
+                      <xs:annotation>
+                        <xs:documentation>The Description of the Hotstring</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" ref="category">
+                      <xs:annotation>
+                        <xs:documentation>The Category of the Hotstring. Used to group and filter list of hotstrings.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="trigger" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>The sequence of typed keys that triggers the hotstring</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="commands">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="command">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="name">
+                      <xs:annotation>
+                        <xs:documentation>The Name of the Hotkey command for display</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" ref="description">
+                      <xs:annotation>
+                        <xs:documentation>The Description of the Hotkey command</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" ref="category">
+                      <xs:annotation>
+                        <xs:documentation>The Category of the HotKey command. Used to group and filter list of hotkeys.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="hotkey" type="xs:string">
+                    <xs:annotation>
+                      <xs:documentation>The Hotkey for the event such as ^p {ctrl+p}</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute default="true" name="enabled" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>If False then the include will be disabled</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="category" type="xs:NCName" default="None"/>
+  <xs:element name="forceclear" type="xs:boolean" default="false"/>
+  <xs:element name="sendkeys" type="xs:string"/>
+  <xs:element name="tabify" type="xs:boolean" default="false"/>
+  <xs:element name="replacements">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="unbounded" minOccurs="0" ref="inputReplacement"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0" ref="inputFixedList"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="inputReplacement">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="diaglog"> </xs:element>
+      </xs:sequence>
+      <xs:attribute name="placeHolder" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="diaglog">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="dialogtitle"/>
+        <xs:element ref="dialogtext"/>
+        <xs:element minOccurs="0" ref="dialoginitialvalue"/>
+      </xs:sequence>
+      <xs:attribute name="local" type="languageLocal" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="diaglogList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="dialogtitle"/>
+        <xs:element ref="dialogtext"/>
+        <xs:element minOccurs="0" ref="dialoginitialvalue"/>
+        <xs:element ref="listValues"/>
+      </xs:sequence>
+      <xs:attribute name="local" type="languageLocal" use="required"/>
+    </xs:complexType>
+
+  </xs:element>
+  <xs:element name="inputFixedList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="diaglogList" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="placeHolder" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:unique name="UniqueLocalKey">
+      <xs:selector xpath="diaglogList"/>
+      <xs:field xpath="@local"/>
+    </xs:unique>
+  </xs:element>
+  <xs:element name="dialogtitle" type="xs:string"/>
+  <xs:element name="dialogtext" type="xs:string"/>
+  <xs:element name="dialoginitialvalue" type="xs:string"/>
+  <xs:element name="name" type="xs:string"/>
+  <xs:element name="description" type="xs:string"/>
+  <xs:element name="snippit" type="xs:string"/>
+
+  <xs:element name="listValues">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="listItem"/>
+      </xs:sequence>
+    </xs:complexType>
+    <xs:unique name="UniqueDefaultItem">
+      <xs:selector xpath="listItem"/>
+      <xs:field xpath="@default"/>
+    </xs:unique>
+  </xs:element>
+  <xs:element name="listItem" type="itemType"> </xs:element>
+  <xs:simpleType name="defaultType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="true"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="itemType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="default" type="defaultType" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="commandType">
+    <xs:annotation>
+      <xs:documentation>The type of command such as include</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="unknown"/>
+      <xs:enumeration value="include"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="hotstringType">
+    <xs:annotation>
+      <xs:documentation>The type of hotstring such as inline</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="unknown"/>
+      <xs:enumeration value="inline"/>
+      <xs:enumeration value="snippitFile"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="dialogType">
+    <xs:annotation>
+      <xs:documentation>The type of dialoug such as input</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="unknown"/>
+      <xs:enumeration value="fixedList"/>
+      <xs:enumeration value="input"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="version">
+    <xs:annotation>
+      <xs:documentation>Limits string to version in format of #.# or #.#.# or #.#.#.#</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]+\.[0-9]+(\.[0-9]+)?(\.[0-9]+)?"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="fileName">
+    <xs:annotation>
+      <xs:documentation>Limits String to  between 2 and 255 chars and only save file name chars.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z0-9_\s]{2,255}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="languageLocal">
+    <xs:annotation>
+      <xs:documentation>Language Local in the format aa-AA such as en-US</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-z]{2}-[A-Z]{2}"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
