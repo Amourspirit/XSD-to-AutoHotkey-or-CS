@@ -1,0 +1,95 @@
+﻿<html>
+	
+<head>
+	<title>Introduction</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="keywords" content="Introduction">
+	
+	<link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/base.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/hnd.css" />
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" media="all" href="css/ielte8.css" />
+	<![endif]-->
+	<style type="text/css">
+		#topic_header
+		{
+			background-color: #EFEFEF;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/hnd.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			if (top.frames.length == 0)
+			{
+				var sTopicUrl = top.location.href.substring(top.location.href.lastIndexOf("/") + 1, top.location.href.length);
+				top.location.href = "index.html?" + sTopicUrl
+			}
+			else
+			{
+				var bTocSelected = false;
+				(function waitForTOC()
+				{
+					if (top && top.FrameTOC && top.FrameTOC.SelectTocItem)
+					{
+						top.FrameTOC.SelectTocItem("Introduction");
+						bTocSelected = true;
+					}
+					if (!bTocSelected) setTimeout(function() { waitForTOC(); }, 300);
+				})();
+			}
+		});
+	</script>
+	
+	</head>
+
+<body>
+
+<div id="topic_header">
+			<div id="topic_header_content">
+				<h1 id="topic_header_text">Introduction</h1>
+				
+				</div>
+			<div id="topic_header_nav">
+				<a href="Libraryxsd.html"><img src="img/arrow_right.png" alt="Next"/></a>
+				
+				</div>
+			<div class="clear"></div>
+		</div>
+	<div id="topic_content">
+		
+<p></p>
+<h1 class="rvps5"><span class="rvts0"><span class="rvts12">Introduction</span></span></h1>
+<p class="rvps2"><span class="rvts15">xsdOut</span><span class="rvts6"> version </span><span class="rvts6">0.7.5.0</span><span class="rvts6"> is a command line tool for converting XSD to </span><a class="rvts14" href="https://autohotkey.com/" target="_blank">AutoHotkey</a><span class="rvts6"> format or to C# format.</span></p>
+<p class="rvps2"><span class="rvts6">Link to </span><span class="rvts15">xsdOut</span><span class="rvts6"> </span><a class="rvts16" href="https://github.com/Amourspirit/XSD-to-AutoHotkey-or-CS" target="_blank">Homepage</a><span class="rvts6">.</span></p>
+<p class="rvps2"><span class="rvts6">If converting to AutoHotkey format then </span><a class="rvts16" href="https://github.com/Amourspirit/Mini-Framework" target="_blank">Mini-Framework for AutoHotkey</a><span class="rvts6"> is required.</span></p>
+<p class="rvps2"><span class="rvts6">The program is distributed under the terms of the GNU General Public License version 3 or later. See </span><a class="rvts13" href="License.html">License</a></p>
+<p class="rvps2"><span class="rvts6">Command line options for </span><span class="rvts15">xsdOut.exe</span></p>
+<p class="rvps4"><span class="rvts11"> &nbsp;-c, --classes &nbsp; &nbsp; &nbsp; Generate Classes for this Schema</span><br/><span class="rvts11"> &nbsp;-p, --xmlhelper &nbsp; &nbsp; Append XmlHelper Class to AutoHotKey Output</span><br/><span class="rvts11"> &nbsp;-l, --language &nbsp; &nbsp; &nbsp;(Default: CS) The language to use for the generated code. Choose from 'CS' or 'AHK'</span><br/><span class="rvts11"> &nbsp;-o, --out &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; The output directory to put files in. The default is the current Directory.</span><br/><span class="rvts11"> &nbsp;-i, --import &nbsp; &nbsp; &nbsp; &nbsp;If true then import will be included for AutoHotKey Classes.</span><br/><span class="rvts11"> &nbsp;-x, --export &nbsp; &nbsp; &nbsp; &nbsp;If true then export will be included for AutoHotKey Classes.</span><br/><span class="rvts11"> &nbsp;-w, --whitespace &nbsp; &nbsp;Ignore whites space when reading xml. Requires import to be true. Applies only to AHK</span><br/><span class="rvts11"> &nbsp;-h, --help &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Display help screen.</span></p>
+<p class="rvps2"><span class="rvts6">Theses example are based upon </span><a class="rvts13" href="Libraryxsd.html">Library.xsd</a><span class="rvts6"> sample and </span><a class="rvts13" href="LibrarySamplexml.html">LibrarySample.xml</a><span class="rvts6">.</span></p>
+<hr style="height: 1px; color : #000000;  background-color : #000000; border-width : 0px;">
+<p class="rvps2"><span class="rvts6">Run the following command On </span><a class="rvts13" href="Libraryxsd.html">Library.xsd</a></p>
+<p class="rvps4"><span class="rvts11">xsdOut.exe -c -p -i -x -w -l ahk Library.xsd</span></p>
+<p class="rvps2"><span class="rvts6">The result will be </span><a class="rvts13" href="Libraryahk.html">Library.ahk</a><span class="rvts6"> file.</span></p>
+<p class="rvps2"><span class="rvts6">Here is an example of reading xml using AutoHotkey and the generated &nbsp;</span><a class="rvts13" href="Libraryahk.html">Library.ahk</a><span class="rvts6"> file </span><a class="rvts13" href="SampleCode.html">here</a><span class="rvts6">.</span></p>
+<hr style="height: 1px; color : #000000;  background-color : #000000; border-width : 0px;">
+<p class="rvps2"><span class="rvts6">Run the following command On </span><a class="rvts13" href="Libraryxsd.html">Library.xsd</a></p>
+<p class="rvps4"><span class="rvts11">xsdOut.exe -c Library.xsd</span></p>
+<p class="rvps2"><span class="rvts6">The result will be </span><a class="rvts13" href="LibraryCS.html">Library.CS</a></p>
+<hr style="height: 1px; color : #000000;  background-color : #000000; border-width : 0px;">
+<p class="rvps2"><span class="rvts6">Run the following command On </span><a class="rvts13" href="Libraryxsd.html">Library.xsd</a></p>
+<p class="rvps4"><span class="rvts11">xsdOut.exe -c -l ahk Library.xsd</span></p>
+<p class="rvps2"><span class="rvts6">The result will be a simpler version, </span><a class="rvts13" href="LibrarySimpleahk.html">LibrarySimple</a><span class="rvts6">.</span></p>
+</div>
+	
+	<div id="topic_footer">
+
+			<div id="topic_footer_content">
+				Copyright &copy; 2016-2017  by Paul Moss. All Rights Reserved.</div>
+		</div>
+	</body>
+	
+</html>
+
